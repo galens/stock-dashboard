@@ -2,9 +2,6 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
-.main {
-  position: relative;
-  top: 200px;
-  width: 500px;
-  left: 20%
+.Toastify__toast-container {
+  width: fit-content;
 }

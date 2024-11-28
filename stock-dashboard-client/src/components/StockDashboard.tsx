@@ -1,5 +1,6 @@
-import React, { useRef, useState } from 'react'
-import StockItem from './StockItem'
+import React, { useRef, useState } from 'react';
+import StockItem from './StockItem';
+import { toast } from 'react-toastify';
 
 const StockDashboard = () => {
 
@@ -20,15 +21,15 @@ const StockDashboard = () => {
     }
     setTickerList((prev) => [...prev, newTickerList]);
     inputRef.current.value = '';
+
+    toast.success(`Stock ${ticker} has been added!`);
   }
 
   const deleteTicker = (ticker: string) => {
-    console.log('ticker list: ', tickerList);
     setTickerList((prev) => {
-      console.log('prev is: ', prev);
-      return prev.filter((stock) => stock.ticker !== ticker);
-    })
-     console.log('going to delete ticker: ', ticker);
+      return prev.filter((item) => item.name !== ticker)
+    });
+    toast.success(`Stock ${ticker} has been removed!`);
   }
 
   return (
