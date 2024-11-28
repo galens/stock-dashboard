@@ -1,0 +1,13 @@
+version: '3'
+services:
+ db:
+   image: mysql:latest
+   container_name: mysqlContainer
+   ports:
+     - "3306:3306"
+   environment:
+     - MYSQL_ROOT_PASSWORD=password
+     - MYSQL_DATABASE=truckbase
+   volumes:
+     - ./db:/var/lib/mysql
+     - ./scripts/schema.sql:/docker-entrypoint-initdb.d/1.sql
