@@ -40,7 +40,8 @@ export const get = async (url: string) => {
       if (responseJSON && responseJSON?.success) {
         return responseJSON;
       } else {
-        throw Error('an error occurred');
+        const message = responseJSON?.error || 'an error occurred';
+        return { success: false, error: message };
       }
     } catch(error) {
       throw Error('an error occurred');

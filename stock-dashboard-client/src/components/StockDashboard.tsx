@@ -20,9 +20,11 @@ const StockDashboard = () => {
     try {
       const result = await addStock(ticker);
       if (result?.success) {
-        //const newStocks = await getStocks();
-        //console.log('newStocks: ', newStocks);
+        const refreshedStocks = await getStocks();
+        setTickerList(refreshedStocks?.data);
         toast.success(`Stock ${ticker} has been added!`);
+      } else {
+        toast.error(result?.error);
       }
     } catch (error) {
         toast.error(`There was an issue adding the ticker ${ticker}`);
@@ -47,8 +49,8 @@ const StockDashboard = () => {
     try {
       const result = await deleteStock(ticker)
         if (result?.success) {
-          const newStocks = await getStocks();
-          console.log('newStocks: ', newStocks);
+          const refreshedStocks = await getStocks();
+          setTickerList(refreshedStocks?.data);
           toast.success(`Stock ${ticker} has been removed!`);
         }
       } catch (error) {
