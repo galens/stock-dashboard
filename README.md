@@ -10,3 +10,6 @@ Installation Steps:
 
 To manually connect to db:
 `mysql -hlocalhost --protocol=TCP -uroot -p`
+
+**_ Considerations _**
+For demonstration purposes I have hardcoded values for the database user and password. In a production system I would instead use dotenv and import any secrets from an environment configuration file or use AWS Parameter Store.
