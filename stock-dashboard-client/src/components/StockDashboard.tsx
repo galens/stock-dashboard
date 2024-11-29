@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
 import StockItem from './StockItem';
 import { toast } from 'react-toastify';
+import { addStock, getStocks, deleteStock } from '../api/stock';
 
 const StockDashboard = () => {
 
@@ -9,27 +10,50 @@ const StockDashboard = () => {
 
   const inputRef = useRef();
 
-  const addTicker = () => {
+  const addTicker = async () => {
     const ticker = inputRef?.current?.value;
     if (!ticker) {
       // output to user they cant add an empty ticker
       return null;
     }
+
+    try {
+      const result = await addStock(ticker);
+      if (result?.success) {
+        //const newStocks = await getStocks();
+        //console.log('newStocks: ', newStocks);
+        toast.success(`Stock ${ticker} has been added!`);
+      }
+    } catch (error) {
+        toast.error(`There was an issue adding the ticker ${ticker}`);
+    }
+
+    /*
     const newTickerList = {
       name: ticker,
       price: '1337.40'
     }
     setTickerList((prev) => [...prev, newTickerList]);
+    */
     inputRef.current.value = '';
 
-    toast.success(`Stock ${ticker} has been added!`);
   }
 
-  const deleteTicker = (ticker: string) => {
+  const deleteTicker = async (ticker: string) => {
     setTickerList((prev) => {
       return prev.filter((item) => item.name !== ticker)
     });
-    toast.success(`Stock ${ticker} has been removed!`);
+
+    try {
+      const result = await deleteStock(ticker)
+        if (result?.success) {
+          const newStocks = await getStocks();
+          console.log('newStocks: ', newStocks);
+          toast.success(`Stock ${ticker} has been removed!`);
+        }
+      } catch (error) {
+        toast.error(`There was an issue deleting the ticker ${ticker}`);
+      }
   }
 
   return (

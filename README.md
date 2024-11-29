@@ -8,6 +8,17 @@ Installation Steps:
 2. naviage into the repo folder
 3. type `docker-compose up`
 
+Stack:
+-backend:
+    node.js
+    express
+    typescript
+-frontend:
+    react
+    typescript
+-database:
+    mysql
+
 To manually connect to db:
 `mysql -hlocalhost --protocol=TCP -uroot -p`
 
