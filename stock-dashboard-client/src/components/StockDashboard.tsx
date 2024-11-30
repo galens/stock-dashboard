@@ -10,6 +10,7 @@ const StockDashboard = () => {
 
   const inputRef = useRef();
 
+  // attempts to add a new ticker
   const addTicker = async () => {
     const ticker = inputRef?.current?.value;
     if (!ticker) {
@@ -18,6 +19,7 @@ const StockDashboard = () => {
     }
 
     try {
+      // makes the post request to the server
       const result = await addStock(ticker);
       if (result?.success) {
         const refreshedStocks = await getStocks();
@@ -30,23 +32,17 @@ const StockDashboard = () => {
         toast.error(`There was an issue adding the ticker ${ticker}`);
     }
 
-    /*
-    const newTickerList = {
-      name: ticker,
-      price: '1337.40'
-    }
-    setTickerList((prev) => [...prev, newTickerList]);
-    */
     inputRef.current.value = '';
-
   }
 
+  // attempts to delete an existing ticker
   const deleteTicker = async (ticker: string) => {
     setTickerList((prev) => {
       return prev.filter((item) => item.name !== ticker)
     });
 
     try {
+      // makes the delete request to the server
       const result = await deleteStock(ticker)
         if (result?.success) {
           const refreshedStocks = await getStocks();
@@ -63,10 +59,12 @@ const StockDashboard = () => {
     setTickerList(refreshedStocks?.data);
   }
   
+  // initial use effect on startup, fired once
   useEffect(() => {
     getAndSetStocks();
   }, []);
 
+  // polling use effect, fires every second to refresh data
   useEffect(() => {
     const timerId = setTimeout(getAndSetStocks, 1000);
     return () => clearInterval(timerId);

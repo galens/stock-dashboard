@@ -3,7 +3,7 @@ import React from 'react'
 interface StockItemProps {
     ticker: string;
     price: string;
-    removeTicker: (ticker: string) => {}
+    deleteTicker: (ticker: string) => {}
 }
 
 const StockItem: React.FC<StockItemProps> = ({ticker = 'TSLA', price = '1337.99', deleteTicker}) => {
