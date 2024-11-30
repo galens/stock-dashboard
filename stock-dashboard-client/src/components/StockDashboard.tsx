@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import StockItem from './StockItem';
 import { toast } from 'react-toastify';
 import { addStock, getStocks, deleteStock } from '../api/stock';
@@ -57,6 +57,20 @@ const StockDashboard = () => {
         toast.error(`There was an issue deleting the ticker ${ticker}`);
       }
   }
+
+  const getAndSetStocks = async () => {
+    const refreshedStocks = await getStocks();
+    setTickerList(refreshedStocks?.data);
+  }
+  
+  useEffect(() => {
+    getAndSetStocks();
+  }, []);
+
+  useEffect(() => {
+    const timerId = setTimeout(getAndSetStocks, 1000);
+    return () => clearInterval(timerId);
+  })
 
   return (
     <div className='bg-white place-self-center w-11/12 max-w-[600px] flex flex-col p-7 min-h-[600px] rounded-xl'>
