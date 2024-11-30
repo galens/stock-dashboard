@@ -11,20 +11,30 @@ Installation Steps:
 5. add stocks tickers
 
 Stack:
+
 -backend:
+
     node.js
+
     express
+
     typescript
+
 -frontend:
+
     react
+
     typescript
+
 -database:
+
     mysql
 
 To manually connect to db:
 `mysql -hlocalhost --protocol=TCP -uroot -p`
 
-**_ Considerations _**
+** Considerations **
+
 For demonstration purposes I have hardcoded values for the database user and password. In a production system I would instead use dotenv and import any secrets from an environment configuration file or use AWS Parameter Store.
 
 For simplicity, I opted to use a polling architecture instead of using websockets. In a production environment, I would have gone with using websockets and would probably use something like https://pusher.com/ instead of trying to hand roll the boiler-plate websockets server.
