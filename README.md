@@ -12,21 +12,18 @@ Installation Steps:
 
 Stack:
 
--backend:
+backend:
 
     node.js
-
     express
-
     typescript
 
--frontend:
+frontend:
 
     react
-
     typescript
 
--database:
+database:
 
     mysql
 
