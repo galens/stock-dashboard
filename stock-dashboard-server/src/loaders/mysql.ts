@@ -11,7 +11,7 @@ export function get(): Pool {
 
 export default async function () {
     state.pool = createPool({
-        host: 'localhost',      // we would normally never hardcode these values here
+        host: 'db',      // we would normally never hardcode these values here
         user: 'root',           // we would normally never hardcode these values here
         password: 'password',   // we would normally never hardcode these values here
         database: 'truckbase',  // we would normally never hardcode these values here

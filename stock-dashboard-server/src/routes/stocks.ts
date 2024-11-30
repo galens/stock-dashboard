@@ -14,7 +14,6 @@ export default function (app: Router) {
             let resultsWithPrice = [];
             if (results.length) {
                 for (const stock of results) {
-                    console.log('stock: ', stock);
                     resultsWithPrice.push({ name: stock.ticker, price: getPrice() })
                 }
             }
@@ -32,7 +31,6 @@ export default function (app: Router) {
                 res.status(400).json({ error: 'Malformed Request' }).end();
             } else {
                 const result = await getStock(body.ticker);
-                console.log('result: ', result);
                 if (result.length === 0) {
                     saveStock(body.ticker);
                     res.json({ success: true });

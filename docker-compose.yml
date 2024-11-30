@@ -1,13 +1,40 @@
 version: '3'
 services:
  db:
-   image: mysql:latest
-   container_name: mysqlContainer
-   ports:
-     - "3306:3306"
-   environment:
-     - MYSQL_ROOT_PASSWORD=password
-     - MYSQL_DATABASE=truckbase
-   volumes:
-     - ./db:/var/lib/mysql
-     - ./scripts/schema.sql:/docker-entrypoint-initdb.d/1.sql
+    image: mysql:latest
+    container_name: mysqlContainer
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=truckbase
+    volumes:
+      - ./db:/var/lib/mysql
+      - ./scripts/schema.sql:/docker-entrypoint-initdb.d/1.sql
+    networks:
+      - unifiedNetwork
+ api:
+    build:
+      context: ./stock-dashboard-server
+      dockerfile: Dockerfile
+    ports:
+      - 3001:3001
+    networks:
+      - unifiedNetwork
+    depends_on:
+      - db 
+ frontend:
+    restart: on-failure 
+    build: 
+      context: ./stock-dashboard-client
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+    networks:
+      - unifiedNetwork
+    depends_on:
+      - api
+
+networks:
+  unifiedNetwork:
+    driver: bridge
