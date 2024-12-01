@@ -35,3 +35,5 @@ To manually connect to db:
 For demonstration purposes I have hardcoded values for the database user and password. In a production system I would instead use dotenv and import any secrets from an environment configuration file or use AWS Parameter Store.
 
 For simplicity, I opted to use a polling architecture instead of using websockets. In a production environment, I would have gone with using websockets and would probably use something like https://pusher.com/ instead of trying to hand roll the boiler-plate websockets server.
+
+In order to keep this solution time-boxed to an appropriate amount, no paging was implemented, but in production I'd implement some kind of extra parameter in the get request to fetch all the stocks and some UI paging buttons so we don't fetch all the data with every request.
