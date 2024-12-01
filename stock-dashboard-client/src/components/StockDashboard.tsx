@@ -58,17 +58,12 @@ const StockDashboard = () => {
     const refreshedStocks = await getStocks();
     setTickerList(refreshedStocks?.data);
   }
-  
-  // initial use effect on startup, fired once
-  useEffect(() => {
-    getAndSetStocks();
-  }, []);
 
   // polling use effect, fires every second to refresh data
   useEffect(() => {
     const timerId = setTimeout(getAndSetStocks, 1000);
     return () => clearInterval(timerId);
-  })
+  });
 
   return (
     <div className='bg-white place-self-center w-11/12 max-w-[600px] flex flex-col p-7 min-h-[600px] rounded-xl'>
